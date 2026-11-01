@@ -1,0 +1,260 @@
+/*
+ * Gleaner 的设计变量（第 8 步，docs/design/brief.md、docs/design/directions/b/concept.md）。
+ * 所有颜色都取自米勒《拾穗者》；麦金只给"拾起来的东西"。界面其他样式只引用这里的变量。
+ * 纸色有两种，用户在"关于"里选：雾（默认，取自画里的天空）和米（更暖），html 上的 data-paper 切换。
+ * 深色也有两种：暮（默认，暖）和夜（冷一点），html 上的 data-dark 切换。
+ */
+:root {
+  color-scheme: light dark;
+
+  /* 纸、田、页边：雾 */
+  --paper: #F3EEE8;
+  --field: #E9E2D9;
+  --margin: #EFE9E2;
+  --mat: #F8F5F0;
+  --bar: #E8E2D9;                         /* 工具栏：比纸深一点，像桌面 */
+  --rule: #D6CCC0;
+  --rule-soft: #E3DBD1;
+
+  /* 墨 */
+  --ink: #2A241D;
+  --ink-2: #584E43;
+  --ink-3: #6A5F52;
+
+  /* 画里的四种颜色 */
+  --wheat: #805A17;                       /* 麦穗：只给拾起来的东西 */
+  --wheat-on-ink: #D3A553;                /* 墨色按钮上的麦穗 */
+  --wheat-wash: rgba(196, 150, 62, 0.18);
+  --wheat-wash-strong: rgba(196, 150, 62, 0.36);
+  --blue: #365A80;                        /* 头巾：可点、焦点、选中 */
+  --red: #97452F;                         /* 袖子：危险、出错 */
+  --teal: #46665F;                        /* 围裙：成功、已连接 */
+  --warn: #7A5527;                        /* 赭石：提醒 */
+
+  --hover: rgba(42, 36, 29, 0.05);
+  --select: rgba(54, 90, 128, 0.10);
+  --select-strong: rgba(54, 90, 128, 0.18);
+  --shade: rgba(28, 24, 19, 0.32);
+  --shadow-pop: 0 14px 36px -18px rgba(28, 24, 19, 0.45);
+  --painting-filter: none;
+
+  /* 字：别人的话用黑体，自己的笔记用宋体，心得用楷体 */
+  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Microsoft YaHei", sans-serif;
+  --song: "EB Garamond", "Noto Serif SC", "Songti SC", serif;
+  --kai: "EB Garamond", "LXGW WenKai", "Kaiti SC", "KaiTi", serif;
+  --latin: "EB Garamond", "Noto Serif SC", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* 动效："呼吸"（第 8 步 D8，docs/design/motion-spec.md）：轻而软、有一点余韵、按使用频率减量。
+   * 出现、挪位置用弹簧（D8 第二轮，--spring-*），消失用 --ease-leave，循环用 --ease-breath。消失约为出现的 2/3 */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);       /* 舞台时刻原来的曲线 */
+  --ease-land: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-leave: cubic-bezier(0.4, 0, 1, 1);
+  --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-breath: cubic-bezier(0.37, 0, 0.63, 1);
+  --t-instant: 100ms;    /* hover、按下；"减少动态效果"时的淡入淡出 */
+  --t-swap: 120ms;       /* 换笔记时标题淡入 */
+  --t-quick: 160ms;      /* 菜单、下拉框出现；按钮松开 */
+  --t-quick-out: 110ms;
+  --t-lift: 180ms;
+  --t-soft: 240ms;       /* 对话框出现、栏收起展开、列表让位 */
+  --t-soft-out: 160ms;
+  --t-settle: 360ms;     /* 导入完成提示卡 */
+  --t-settle-out: 240ms;
+  --t-glean: 600ms;      /* 页边小麦穗标记落定（飞行本身在第二轮改用 --spring-glean） */
+  --t-glow: 900ms;
+  --t-stage: 1200ms;
+  /* 舞台时刻的时间线（第一次打开、空资料库、导入完成，A2 定的节奏） */
+  --t-paint: 3400ms;          /* 第二轮 R4：刷毛笔触把画画出来（先铺底色再细化），之后约 0.9 秒补满 */
+  --t-ink: 900ms;             /* 线描一笔笔浮现 */
+  --t-draw: 2000ms;           /* 地平线画出来 */
+  --t-ink-slow: 1000ms;
+  --t-delay-grain: 2600ms;    /* 线描画完，亮起一粒麦 */
+  --t-tie: 1000ms;            /* 捆麦的绳子系上 */
+  --t-delay-tie: 600ms;
+  --t-flash: 600ms;           /* 跳到原文、跳到摘录时的底色闪一下再褪去 */
+  --t-breath-push: 24000ms;   /* 画面"呼吸"：推近 100% ↔ 104% 一个来回（D8-3） */
+  --t-breath-light: 16000ms;  /* 光线起伏一个来回；两个周期不同，画面不会完全重复 */
+  /* 弹簧："刚度 阻尼"，由 motion.ts 换成 WAAPI 的时长和 linear() 曲线（D8 第二轮，试验页 docs/design/motion-lab/） */
+  --spring-ui: 230 15;     /* 对话框、菜单、提示卡、列表让位、按钮松开：落定时轻轻回弹一点（约 17%） */
+  --spring-soft: 170 26;   /* 栏收起展开：不回弹 */
+  --spring-glean: 60 15;   /* 拾进笔记：原句的影子飞进笔记（R2） */
+  --spring-ear: 140 6;     /* 页边麦穗落下后弯一下腰、再弹回直立 */
+  --spring-icon: 110 5;    /* 麦穗图标被风吹过：摆得多、回得慢（R3） */
+  --t-ear-wave: 1600ms;    /* 加载中三穗麦一起一伏一个来回 */
+  --t-grain-step: 70ms;    /* 导入完成：绳子系上后，麦粒从下往上一颗颗亮起的间隔 */
+  --t-grain: 800ms;        /* 一颗麦粒落到摘录左边（前后错开约 70ms） */
+  --t-ear-hold: 2400ms;    /* 页边麦穗弯完腰停一会儿 */
+  --t-ear-fade: 1400ms;    /* 再慢慢淡掉，连续拾也不会在页边堆起来 */
+  --t-link-hold: 10s;      /* 备注到笔记的连线：新加备注、定位、点选之后留 10 秒再淡掉，不一直挡着看（项目负责人 2026-10-31） */
+  --rise-menu: 8px;      /* 出现时浮起的距离 */
+  --rise-dialog: 20px;
+  --rise-toast: 12px;
+  --rise-list: 12px;     /* 列表里新的一项从下方浮起 */
+
+  /* 文字高亮（马克笔）：同一组颜色的浅色；深色模式在下面 */
+  --hl-wheat: #F1DFB6;
+  --hl-blue: #D6E0EA;
+  --hl-red: #F0D5CC;
+  --hl-teal: #D4E2DD;
+  --hl-grey: #E4DED4;
+  --ink-earth: var(--warn);
+
+  /* "关于"里四种底色的小圆点：固定画出每种底色本来的样子，不跟着主题变 */
+  --swatch-haze: #F3EEE8;
+  --swatch-cream: #F6F0E5;
+  --swatch-dusk: #1C1915;
+  --swatch-night: #1A2020;
+
+  --shadow-dialog: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+
+  /* D3-2：对话框共用的排版刻度；工作区其他区域不在本轮套用 */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 12px;
+  --space-6: 16px;
+  --space-7: 24px;
+  --space-8: 32px;
+  --ui-small: 12px;
+  --ui-body: 13px;
+  --ui-title: 16px;
+  --ui-weight: 400;
+  --ui-strong: 600;
+  --ui-leading: 1.6;
+  --line: 1px;
+  --focus-width: 2px;
+  --control-height: 32px;
+  --disabled-opacity: 0.45;
+  --dialog-width: 420px;
+  --dialog-pack-width: 640px;
+  --dialog-session-width: 860px;
+  --dialog-export-width: 980px;
+  --dialog-form-width: 300px;
+  --dialog-session-height: 680px;
+  --dialog-group-width: 176px;
+  --dialog-picker-height: 280px;
+  --dialog-turns-height: 200px;
+  --dialog-preview-height: 420px;
+  --modal-layer: 100;
+  --swatch-radius: 99px;
+  --swatch-size: 11px;
+  --swatch-inset: 7px;
+  --swatch-indent: 24px;
+  /* D3-3：资料库的字号和尺寸 */
+  --ui-tiny: 11px;
+  --ui-crumb: 15px;
+  --page-title: 26px;
+  --list-song: 15.5px;
+  --list-sans: 14.5px;
+  --lib-side-width: 240px;
+  --lib-gutter: 44px;
+  --lib-bottom: 80px;
+  --lib-tile-width: 176px;
+  --lib-tile-height: 132px;
+  --menu-width: 240px;
+  --menu-width-small: 130px;
+  --search-min: 320px;
+  --search-indent: 34px;
+  --search-where: 9em;
+  --menu-offset: 24px;
+  --leading-title: 1.3;
+  --leading-list: 1.5;
+  --tracking-label: 0.12em;
+  /* D3-4：顶栏 */
+  --topbar-height: 44px;
+  --ui-code: 14px;
+  --ui-latin-weight: 500;
+  --tracking-code: 0.18em;
+  --bridge-panel-width: 260px;
+  /* D3-4：笔记栏。栏窄时左右边距收小，功能区收起（容器查询的宽度写在 notes.css，CSS 变量不能用在 @container 里） */
+  --note-gutter-wide: 48px;
+  --note-gutter-narrow: 24px;
+  --note-gutter-tight: 16px;
+  --note-bottom: 60px;
+  --title-min: 10em;
+  --tb-sep-height: 18px;
+  --menu-max-height: 60vh;
+  /* 预览模拟打印纸，固定白底黑字，不改变导出文件的排版与格式 */
+  --print-paper: #FFFFFF;
+  --print-ink: #1F2328;
+  /* D3-7：导出（PDF、打印、预览）用的固定颜色和字，不跟着浅色 / 深色变；取自画里的墨、规则线和头巾蓝 */
+  --print-ink-2: #584E43;
+  --print-ink-3: #6A5F52;
+  --print-rule: #D6CCC0;
+  --print-mat: #F8F5F0;
+  --print-wheat: #805A17;
+  --print-blue: #365A80;
+  /* 导出的黑体：Mac 上苹方生成的 PDF 复制出部首字（"力"→"⼒"），用华文黑体（2026-10-26 实测），英文字母用 Helvetica Neue；Windows 用微软雅黑 */
+  --print-sans: -apple-system, "Helvetica Neue", "STHeiti", "Segoe UI", "Microsoft YaHei", sans-serif;
+  --print-body: 15px;
+
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+:root[data-paper="cream"] {
+  --paper: #F6F0E5;
+  --field: #EDE4D3;
+  --margin: #F2EBDE;
+  --mat: #FBF8F1;
+  --bar: #ECE3D2;
+  --rule: #D8CDBA;
+  --rule-soft: #E4DACA;
+}
+
+/* 暮色：同样的颜色关系，换成傍晚收工时的田 */
+@media (prefers-color-scheme: dark) {
+  :root, :root[data-paper="cream"] {
+    --paper: #1C1915;
+    --field: #221E19;
+    --margin: #1F1C17;
+    --mat: #24201B;
+    --bar: #25211C;
+    --rule: #3A342B;
+    --rule-soft: #2E2923;
+    --ink: #EAE1D0;
+    --ink-2: #BFB29C;
+    --ink-3: #9A8D78;
+    --wheat: #D3A553;
+    --wheat-on-ink: #8E6419;
+    --wheat-wash: rgba(211, 165, 83, 0.14);
+    --wheat-wash-strong: rgba(211, 165, 83, 0.30);
+    --blue: #93B2D2;
+    --red: #DE8F7B;
+    --teal: #90B3A9;
+    --warn: #D4A26A;
+    --hover: rgba(234, 225, 208, 0.05);
+    --select: rgba(147, 178, 210, 0.12);
+    --select-strong: rgba(147, 178, 210, 0.22);
+    --shade: rgba(0, 0, 0, 0.5);
+    --shadow-pop: 0 14px 36px -18px rgba(0, 0, 0, 0.8);
+    --painting-filter: brightness(0.82) saturate(0.92);
+    --hl-wheat: rgba(211, 165, 83, 0.30);
+    --hl-blue: rgba(147, 178, 210, 0.26);
+    --hl-red: rgba(222, 143, 123, 0.26);
+    --hl-teal: rgba(144, 179, 169, 0.26);
+    --hl-grey: rgba(234, 225, 208, 0.14);
+  }
+  /* 夜：冷一点的深色（项目负责人 2026-10-29：两种深色都要），像夜里收工后的桌面；画里的四种颜色不变 */
+  :root[data-dark="night"] {
+    --paper: #1A2020;
+    --field: #1F2626;
+    --margin: #1C2222;
+    --mat: #232A29;
+    --bar: #222928;
+    --rule: #343C3A;
+    --rule-soft: #2A3130;
+    --ink: #E6E4DA;
+    --ink-2: #B6BBAE;
+    --ink-3: #949B8F;
+    --hover: rgba(230, 228, 218, 0.05);
+  }
+}
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

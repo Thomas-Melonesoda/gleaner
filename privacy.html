@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh" data-title-zh="隐私说明 · 拾穗" data-title-en="Privacy · Gleaner">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隐私说明 · 拾穗</title>
+<meta name="description" content="拾穗（Gleaner）不收集你的任何数据：对话和笔记只存在你自己的电脑上。Gleaner collects none of your data: conversations and notes stay on your own computer.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
+<script src="lang.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main"><span lang="zh-CN">跳到正文</span><span lang="en">Skip to content</span></a>
+
+<header class="top on-paper">
+  <a class="mark" href="./" aria-label="Gleaner">
+    <svg class="ear" viewBox="0 0 14 20" aria-hidden="true"><path d="M7 19V5M7 7c-2-1-3-3-3-5M7 7c2-1 3-3 3-5M7 11c-2-1-3-3-3-5M7 11c2-1 3-3 3-5M7 15c-2-1-3-3-3-5M7 15c2-1 3-3 3-5"/></svg>
+    <span>Gleaner</span>
+  </a>
+  <button class="lang" type="button" data-switch>
+    <span lang="zh-CN">English</span><span lang="en">中文</span>
+  </button>
+</header>
+
+<!-- 扩展上架商店要有隐私说明页。内容按代码实际情况写（2026-10-31）：App 唯一主动联网的是检查新版本（apps/desktop/src/main/update-check.ts）；
+     扩展权限见 apps/extension/wxt.config.ts。改了联网行为或扩展权限时同步改这里 -->
+<main id="main">
+  <article class="doc">
+    <h1><span lang="zh-CN">隐私说明</span><span lang="en">Privacy</span></h1>
+    <p class="updated"><span lang="zh-CN">最后更新：2026 年 10 月 31 日</span><span lang="en">Last updated: October 31, 2026</span></p>
+
+    <p class="lead">
+      <span lang="zh-CN">拾穗不收集你的任何数据。没有账号，没有使用统计，没有广告；我们也没有用来存放你数据的服务器。</span>
+      <span lang="en">Gleaner collects none of your data. There is no account, no usage analytics and no advertising, and we run no server that stores your data.</span>
+    </p>
+
+    <h2><span lang="zh-CN">拾穗 App</span><span lang="en">The Gleaner app</span></h2>
+    <ul>
+      <li>
+        <span lang="zh-CN">导入的对话、你的笔记和备注、加进来的 PDF 和图片，都存在你自己电脑上的资料库文件夹里（Mac 上是 <code>~/Library/Application Support/Gleaner</code>）。删掉这个文件夹，数据就全部删除了。</span>
+        <span lang="en">Imported conversations, your notes and comments, and the PDFs and images you add are kept in a library folder on your own computer (on a Mac, <code>~/Library/Application Support/Gleaner</code>). Delete that folder and the data is gone.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">导出的 PDF、Word、Markdown 和学习笔记包，只保存到你选的位置。</span>
+        <span lang="en">Exported PDF, Word and Markdown files and study packs are saved only where you choose.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">App 唯一主动联网的地方是检查新版本：每次启动时向 GitHub（<code>api.github.com</code>）查询一次最新的版本号。这次请求不带任何资料库内容，但和打开任何网页一样，GitHub 能看到你的 IP 地址。</span>
+        <span lang="en">The only time the app goes online on its own is to check for a new version: once per launch it asks GitHub (<code>api.github.com</code>) for the latest version number. The request carries none of your library, but as with any web page, GitHub can see your IP address.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">你在笔记里点链接时，链接用你的浏览器打开。</span>
+        <span lang="en">Links you click in your notes open in your browser.</span>
+      </li>
+    </ul>
+
+    <h2><span lang="zh-CN">浏览器扩展（Chrome、Edge）</span><span lang="en">The browser extension (Chrome and Edge)</span></h2>
+    <ul>
+      <li>
+        <span lang="zh-CN">扩展只在 ChatGPT（<code>chatgpt.com</code>）和 Claude（<code>claude.ai</code>）的网页上工作。</span>
+        <span lang="en">The extension works only on ChatGPT (<code>chatgpt.com</code>) and Claude (<code>claude.ai</code>).</span>
+      </li>
+      <li>
+        <span lang="zh-CN">只有你点"导入"时，它才用你在这些网站已经登录的身份，读取当前这段对话：文字、你上传的和 AI 生成的图片、附件。附件可能存放在这些网站自己的文件地址上，扩展也只从那里下载。</span>
+        <span lang="en">Only when you click Import does it use your existing sign-in on those sites to read the current conversation: its text, the images you uploaded or the AI generated, and attachments. Attachments may be stored at those sites' own file addresses, and the extension downloads them only from there.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">读到的内容直接交给同一台电脑上的拾穗 App（本机地址 <code>127.0.0.1</code>，第一次使用时要输入 App 显示的配对码），不会发到其他任何地方。</span>
+        <span lang="en">What it reads goes straight to the Gleaner app on the same computer (the local address <code>127.0.0.1</code>, after you pair them once with the code the app shows) and nowhere else.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">导入带交互图示的对话时，扩展会在你点击之后给当前标签页截一张图，截图同样只交给本机的 App。</span>
+        <span lang="en">When a conversation contains an interactive diagram, the extension takes a screenshot of the current tab after your click, and that screenshot also goes only to the app on your computer.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">扩展在浏览器里只保存两样东西：和 App 的配对凭据，以及你选的界面语言。</span>
+        <span lang="en">In your browser, the extension stores only two things: its pairing with the app and the interface language you chose.</span>
+      </li>
+    </ul>
+
+    <h2><span lang="zh-CN">Codex、Claude Code 和 Claude 应用插件</span><span lang="en">Codex, Claude Code and the Claude app plugin</span></h2>
+    <ul>
+      <li>
+        <span lang="zh-CN">你选择导入本机的 Codex、Claude Code 会话时，App 读取这两个工具保存在你电脑上的会话文件。</span>
+        <span lang="en">When you choose to import local Codex or Claude Code sessions, the app reads the session files these tools keep on your computer.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">在插件里说"存到拾穗"时，内容通过本机地址交给拾穗 App，不经过别的服务器。</span>
+        <span lang="en">When you say "save to Gleaner" in a plugin, the content is handed to the Gleaner app over the local address, with no other server in between.</span>
+      </li>
+    </ul>
+
+    <h2><span lang="zh-CN">这个网站</span><span lang="en">This website</span></h2>
+    <p>
+      <span lang="zh-CN">本站不用 Cookie，不做访问统计，字体和图片都从本站加载。和所有网站一样，托管网站的服务商可能会在访问日志里记下你的 IP 地址。</span>
+      <span lang="en">This site sets no cookies and runs no analytics; its fonts and images load from this site. As with any website, the hosting provider may record your IP address in its access logs.</span>
+    </p>
+
+    <h2><span lang="zh-CN">联系</span><span lang="en">Contact</span></h2>
+    <p data-contact>
+      <span lang="zh-CN">有问题或建议，请在 <a class="link" href="https://github.com/Thomas-Melonesoda/gleaner/issues">GitHub 上提出</a>。</span>
+      <span lang="en">For questions or suggestions, please <a class="link" href="https://github.com/Thomas-Melonesoda/gleaner/issues">open an issue on GitHub</a>.</span>
+    </p>
+  </article>
+</main>
+
+<footer class="foot">
+  <p><a class="link" href="./"><span lang="zh-CN">返回主页</span><span lang="en">Back to home</span></a> · © 2026 Gleaner</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,190 @@
+/* Gleaner 主页（D7）。颜色、字、动效时长都取 App 的 tokens.css；这里只写页面的版式。
+ * 学标准网站的想法先行、颜色克制、字讲究、动效慢、留白；不学它们的画面和淡灰字（brief 3.2）。 */
+
+/* 只显示当前语言；html[data-lang] 由 site.js 按浏览器语言设，可切换 */
+html[data-lang="zh"] [lang="en"],
+html[data-lang="en"] [lang="zh-CN"]:not(html) { display: none !important; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 18px/1.75 var(--song);
+  -webkit-font-smoothing: antialiased;
+  font-variant-ligatures: common-ligatures;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2, h3 { font-weight: 400; margin: 0; }
+
+.skip { position: absolute; left: var(--space-6); top: -60px; padding: var(--space-3) var(--space-5); background: var(--ink); color: var(--paper); border-radius: var(--radius); z-index: 10; }
+.skip:focus { top: var(--space-6); }
+
+/* 顶上：名字和语言，压在首屏的画上，跟着首屏滚走 */
+.top {
+  position: absolute; inset: 0 0 auto 0; z-index: 5;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: var(--space-5) clamp(20px, 4vw, 48px);
+  color: var(--print-mat);
+}
+.mark { display: inline-flex; align-items: center; gap: var(--space-3); text-decoration: none; font: 500 19px/1 var(--latin); }
+.ear { width: 10px; height: 16px; fill: none; stroke: var(--wheat-on-ink); stroke-width: 1.3; stroke-linecap: round; }
+.lang {
+  font: 400 14px/1 var(--sans); color: var(--print-mat); background: none;
+  border: var(--line) solid rgba(248, 245, 240, 0.5); border-radius: 99px; padding: var(--space-3) var(--space-5); cursor: pointer;
+}
+.lang:hover { border-color: var(--print-mat); }
+
+main > section { padding: clamp(72px, 12vh, 140px) clamp(20px, 6vw, 96px); max-width: 1280px; margin: 0 auto; }
+
+/* ① 画铺满整屏，名字压在画上（项目负责人 2026-10-31 在装框版和铺满版里选了铺满）。
+ * 画上的字用固定的浅纸色（--print-mat，不随深色模式变），画上加一层墨色渐变保证看得清 */
+.hero {
+  position: relative; max-width: none; min-height: 100vh; min-height: 100svh; margin: 0;
+  display: flex; align-items: flex-end; padding: clamp(96px, 14vh, 160px) clamp(20px, 6vw, 96px) clamp(48px, 9vh, 96px);
+  color: var(--print-mat); isolation: isolate;
+}
+.plate { position: absolute; inset: 0; z-index: -1; margin: 0; overflow: hidden; }
+.plate img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; filter: var(--painting-filter); animation: breath-push calc(var(--t-breath-push) / 2) var(--ease-breath) infinite alternate; }
+/* D8-3 画面"呼吸"：和 App 的"关于"一样，画极慢地推近（24 秒一个来回），光线起伏（16 秒一个来回）。
+ * 首屏不在视野里、页面在后台时暂停（html.idle，site.js）；"减少动态效果"时 tokens.css 关掉所有动画 */
+.plate .light { position: absolute; inset: 0; background: var(--wheat-on-ink); mix-blend-mode: soft-light; opacity: 0; pointer-events: none; animation: breath-light calc(var(--t-breath-light) / 2) var(--ease-breath) infinite alternate; }
+@keyframes breath-push { from { transform: scale(1); } to { transform: scale(1.04); } }
+@keyframes breath-light { from { opacity: 0; } to { opacity: 0.12; } }
+.idle .plate img, .idle .plate canvas, .idle .plate .light { animation-play-state: paused; }
+/* D8 第二轮 R5：画由刷毛笔触画在 canvas 上（art.js），按访客的当地时间选；没有脚本时还是原来的米勒。
+ * 画好之前名字先不出来（画布开始是纸色，白字看不清），画好后浮上来 */
+.plate canvas { display: none; position: absolute; inset: 0; width: 100%; height: 100%; filter: var(--painting-filter); animation: breath-push calc(var(--t-breath-push) / 2) var(--ease-breath) var(--t-paint) infinite alternate; }
+.painting .plate canvas { display: block; }
+.painting .plate img { display: none; }
+.painting:not(.painted) .hero-text { opacity: 0; }
+.painted .hero-text { animation: hero-rise var(--t-stage) var(--ease-land) both; }
+@keyframes hero-rise { from { opacity: 0; transform: translateY(24px); } }
+.plate::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(28, 24, 19, 0.86) 0%, rgba(28, 24, 19, 0.55) 38%, rgba(28, 24, 19, 0.1) 70%, rgba(28, 24, 19, 0.35) 100%);
+}
+.plate figcaption { position: absolute; right: clamp(20px, 6vw, 96px); bottom: var(--space-6); z-index: 1; max-width: 36em; text-align: right; font: 400 13px/1.5 var(--sans); color: rgba(248, 245, 240, 0.78); }
+.hero-text { max-width: 640px; }
+h1 { font: 400 clamp(64px, 10vw, 148px)/1 var(--latin); letter-spacing: -0.01em; }
+h1 .sub { display: block; margin-top: var(--space-6); font: 400 20px/1 var(--song); letter-spacing: 0.6em; }
+.lede { margin: var(--space-7) 0; font-size: 21px; line-height: 1.9; }
+html[data-lang="en"] .lede { font: italic 400 23px/1.6 var(--latin); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6); margin: 0; }
+.btn { display: inline-block; padding: var(--space-4) var(--space-7); background: var(--print-mat); color: var(--print-ink); border-radius: var(--radius); text-decoration: none; font: 500 15px/1.4 var(--sans); }
+.btn:hover { background: var(--wheat-on-ink); }
+.link { font: 400 15px/1.4 var(--sans); color: var(--print-mat); text-underline-offset: 4px; text-decoration-color: rgba(248, 245, 240, 0.5); }
+.link:hover { text-decoration-color: currentColor; }
+/* 页脚里的链接在纸上：用页脚的墨色 */
+.foot .link, .doc .link { font: inherit; color: var(--ink-2); text-decoration-color: var(--rule); }
+
+/* 章节标题 */
+h2 { font: 400 clamp(34px, 4.4vw, 52px)/1.2 var(--latin); }
+html[data-lang="zh"] h2 { font-family: var(--song); letter-spacing: 0.04em; }
+.intro { max-width: 34em; margin: var(--space-6) 0 0; color: var(--ink-2); }
+
+/* ② 三步：放在同一张卡片里，三栏并排，截图在上、说明在下 */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); margin-top: clamp(32px, 5vh, 56px); }
+.step .shot { margin-bottom: var(--space-6); }
+/* 截图是按钮：点开放大 */
+.shot { display: block; width: 100%; padding: 0; border: 0; background: none; border-radius: var(--radius-lg); cursor: zoom-in; }
+.zoom { max-width: 94vw; max-height: 94vh; padding: 0; border: 0; background: transparent; overflow: visible; cursor: zoom-out; }
+.zoom::backdrop { background: rgba(28, 24, 19, 0.72); }
+.zoom img { max-width: 94vw; max-height: 90vh; width: auto; height: auto; border-radius: var(--radius-lg); box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.7); }
+.zoom[open] img { animation: zoom-in var(--t-settle) var(--ease-land) both; }
+@keyframes zoom-in { from { opacity: 0; transform: scale(0.96); } }
+.zoom-close { position: absolute; top: calc(-1 * var(--space-7)); right: 0; padding: var(--space-1) var(--space-4); border: 0; border-radius: 99px; background: rgba(248, 245, 240, 0.9); color: var(--ink); font: 400 13px/1.6 var(--sans); cursor: pointer; }
+.shot img { border-radius: var(--radius-lg); border: var(--line) solid var(--rule); box-shadow: 0 30px 70px -45px rgba(28, 24, 19, 0.55); }
+.say h3 { font: 400 22px/1.3 var(--song); margin-bottom: var(--space-4); }
+html[data-lang="en"] .say h3 { font-family: var(--latin); font-size: 24px; }
+.say h3::before { content: ""; display: block; width: 28px; height: 2px; margin-bottom: var(--space-4); background: var(--wheat); }
+.say p { margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink-2); }
+
+/* ②③④ 田里的一天（D8 第二轮 R5）：画固定在背后（position: sticky），每一段是一张纸色的卡片压在画上。
+ * 卡片那一层往上提一屏叠在画上；画自己不用负的下边距，否则画会在这一节结束后再盖住下一屏（名字、下载曾被盖住） */
+main > section.day { position: relative; max-width: none; padding: 0; margin: 0; }
+.day-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--mat); }
+.day-sticky canvas { display: block; width: 100%; height: 100%; filter: var(--painting-filter); }
+.day-time { position: absolute; left: clamp(20px, 6vw, 96px); top: var(--space-6); margin: 0; padding: var(--space-2) var(--space-4); border-radius: 99px; background: rgba(28, 24, 19, 0.5); font: 400 13px/1.5 var(--sans); letter-spacing: var(--tracking-label); color: var(--print-mat); }
+.day-time:empty { display: none; }
+.day-panels { position: relative; z-index: 1; margin-top: -100vh; margin-top: -100svh; }
+.day-panel { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: clamp(72px, 12vh, 140px) clamp(20px, 6vw, 96px); }
+.day-card { width: 100%; max-width: 1180px; margin: 0 auto; padding: clamp(28px, 4vw, 56px); background: color-mix(in srgb, var(--paper) 93%, transparent); border-radius: var(--radius-lg); box-shadow: 0 40px 90px -50px rgba(28, 24, 19, 0.6); }
+.day-kicker { margin: 0 0 var(--space-5); font: 500 13px/1.4 var(--sans); letter-spacing: var(--tracking-label); color: var(--wheat); }
+.day-card .local { border-top: 0; }
+/* 三种方式各配一个麦穗图标；滚到这一段时，麦粒从下往上一颗颗亮起 */
+.way-icon { display: block; width: 40px; height: 40px; margin-bottom: var(--space-4); overflow: visible; }
+.way-icon .ic { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.way-icon .st { fill: none; stroke: var(--ink); stroke-width: 1.1; stroke-linecap: round; }
+.way-icon .aw { fill: none; stroke: var(--wheat); stroke-width: 0.55; stroke-linecap: round; opacity: 0.85; }
+.way-icon .k { fill: transparent; stroke: var(--wheat); stroke-width: 0.9; transition: fill var(--t-quick) var(--ease-land); transition-delay: calc(var(--t-stage) / 2 + var(--i) * var(--t-grain-step)); }
+.local.seen .way-icon .k, html:not(.js) .way-icon .k { fill: var(--wheat); }
+
+/* ③ 只在你的电脑上 */
+.local { border-top: var(--line) solid var(--rule); }
+.big { max-width: 22em; margin: var(--space-7) 0 0; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.6; }
+.ways { list-style: none; padding: 0; margin: clamp(40px, 7vh, 72px) 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px); }
+.ways h3 { font: 500 15px/1.4 var(--sans); letter-spacing: var(--tracking-label); color: var(--wheat); margin-bottom: var(--space-4); }
+.ways p { margin: 0; font-size: 17px; color: var(--ink-2); }
+
+/* ④ 名字：午后那张卡片 */
+.name { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.brand { border-radius: 22px; box-shadow: 0 0 0 1px var(--rule); filter: var(--painting-filter); }
+.story { max-width: 32em; margin: var(--space-6) 0 0; color: var(--ink-2); }
+.story.kai { font-family: var(--kai); font-size: 21px; color: var(--ink); }
+
+/* ⑤ 下载 */
+.download { text-align: center; border-top: var(--line) solid var(--rule); }
+.download .icon { width: 128px; margin: 0 auto var(--space-7); }
+.soon { margin: var(--space-6) 0 0; color: var(--ink-2); }
+.get { margin-top: var(--space-7); }
+.download .btn { background: var(--ink); color: var(--paper); }
+.download .btn:hover { background: var(--ink-2); }
+.get-note { max-width: 30em; margin: var(--space-5) auto 0; font-size: 15px; color: var(--ink-2); }
+
+/* 隐私说明：顶栏不压在画上，用纸色和墨色 */
+.top.on-paper { position: static; color: var(--ink); border-bottom: var(--line) solid var(--rule); }
+.top.on-paper .ear { stroke: var(--wheat); }
+.top.on-paper .lang { color: var(--ink); border-color: var(--rule); }
+.top.on-paper .lang:hover { border-color: var(--ink-2); }
+main > article.doc { max-width: 44em; margin: 0 auto; padding: clamp(48px, 9vh, 96px) clamp(20px, 6vw, 48px); }
+.doc h1 { font: 400 clamp(34px, 4.4vw, 48px)/1.2 var(--latin); }
+html[data-lang="zh"] .doc h1 { font-family: var(--song); letter-spacing: 0.04em; }
+.doc .updated { margin: var(--space-4) 0 0; font: 400 14px/1.6 var(--sans); color: var(--ink-3); }
+.doc .lead { margin: var(--space-8) 0 0; font-size: 20px; color: var(--ink); }
+.doc h2 { margin: var(--space-8) 0 var(--space-4); font: 400 24px/1.35 var(--song); }
+html[data-lang="en"] .doc h2 { font-family: var(--latin); font-size: 26px; }
+.doc p, .doc li { color: var(--ink-2); }
+.doc p { margin: 0 0 var(--space-5); }
+.doc ul { margin: 0 0 var(--space-5); padding-left: 1.2em; }
+.doc li { margin-bottom: var(--space-3); }
+.doc code { font: 400 0.88em/1 var(--mono); }
+
+.foot { max-width: 1280px; margin: 0 auto; padding: var(--space-8) clamp(20px, 6vw, 96px) var(--space-8); border-top: var(--line) solid var(--rule); font: 400 13px/1.7 var(--sans); color: var(--ink-3); }
+.foot p { margin: 0 0 var(--space-2); }
+
+/* 进场：慢慢浮现。只在脚本加了 .js 时先藏起来，没有脚本也能看全；"减少动态效果"时 tokens.css 关掉过渡 */
+/* 文字不移动、只淡入；截图从下方 8px 浮起（D8-3） */
+.js .reveal { opacity: 0; transition: opacity var(--t-stage) var(--ease); }
+.js .reveal.seen { opacity: 1; }
+.js .reveal .shot { transform: translateY(var(--rise-dialog)); transition: transform var(--t-stage) var(--ease-land); }
+.js .reveal.seen .shot { transform: none; }
+/* 正文随滚动从淡色逐字变清楚（emergences.ai 的做法）：site.js 把字拆开，读到哪里亮到哪里 */
+[data-reveal] .w { opacity: 0.2; transition: opacity var(--t-instant) linear; }
+[data-reveal] .w.lit { opacity: 1; }
+.js .hero { animation: dawn var(--t-stage) var(--ease) both; }
+@keyframes dawn { from { opacity: 0; } to { opacity: 1; } }
+
+/* 窄屏：一栏 */
+@media (max-width: 860px) {
+  body { font-size: 17px; }
+  .plate figcaption { left: clamp(20px, 6vw, 96px); right: auto; text-align: left; bottom: var(--space-4); font-size: 11px; }
+  .hero-text { padding-bottom: var(--space-7); }
+  .steps, .name { grid-template-columns: 1fr; }
+  .ways { grid-template-columns: 1fr; }
+  .brand { max-width: 200px; }
+  .lede { font-size: 19px; }
+}

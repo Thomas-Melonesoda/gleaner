@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gleaner · 拾穗</title>
+<meta name="description" content="把和 AI 的对话收回来，拾起值得留下的部分，变成你自己的笔记。Bring your AI conversations home. Glean what is worth keeping, and make it your own notes.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
+<script src="lang.js" defer></script>
+<script src="art.js" defer></script>
+<script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main"><span lang="zh-CN">跳到正文</span><span lang="en">Skip to content</span></a>
+
+<header class="top">
+  <a class="mark" href="#top" aria-label="Gleaner">
+    <svg class="ear" viewBox="0 0 14 20" aria-hidden="true"><path d="M7 19V5M7 7c-2-1-3-3-3-5M7 7c2-1 3-3 3-5M7 11c-2-1-3-3-3-5M7 11c2-1 3-3 3-5M7 15c-2-1-3-3-3-5M7 15c2-1 3-3 3-5"/></svg>
+    <span>Gleaner</span>
+  </a>
+  <button class="lang" type="button" data-switch>
+    <span lang="zh-CN">English</span><span lang="en">中文</span>
+  </button>
+</header>
+
+<main id="main">
+  <!-- ① 画和名字：按访客的当地时间选画，刷毛笔触画出来（D8 第二轮 R5） -->
+  <section class="hero" id="top">
+    <figure class="plate">
+      <img src="img/gleaners.jpg" width="1800" height="1346" alt="">
+      <canvas aria-hidden="true"></canvas>
+      <span class="light" aria-hidden="true"></span>
+      <figcaption data-caption>
+        <span lang="zh-CN">让-弗朗索瓦·米勒，《拾穗者》，1857 年，布面油画，奥赛博物馆</span>
+        <span lang="en">Jean-François Millet, The Gleaners, 1857, oil on canvas, Musée d’Orsay</span>
+      </figcaption>
+    </figure>
+    <div class="hero-text">
+      <h1>Gleaner<span class="sub" lang="zh-CN">拾穗</span></h1>
+      <p class="lede">
+        <span lang="zh-CN">把和 AI 的对话收回来，<br>拾起值得留下的部分，<br>变成你自己的笔记。</span>
+        <span lang="en">Bring your AI conversations home. Glean what is worth keeping, and make it your own notes.</span>
+      </p>
+      <p class="actions">
+        <a class="btn" href="#download"><span lang="zh-CN">下载</span><span lang="en">Download</span></a>
+        <a class="link" href="#glean"><span lang="zh-CN">看看怎么用</span><span lang="en">See how it works</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ②③④ 田里的一天：往下滚时画固定在背后，正午、午后、夜三幅依次刷在前一幅上 -->
+  <section class="day" id="glean" aria-labelledby="glean-title">
+    <div class="day-sticky" aria-hidden="true">
+      <canvas></canvas>
+      <p class="day-time"></p>
+    </div>
+    <div class="day-panels">
+    <div class="day-panel" data-day="noon">
+      <div class="day-card">
+        <p class="day-kicker"><span lang="zh-CN">正午</span><span lang="en">Noon</span></p>
+        <h2 id="glean-title"><span lang="zh-CN">收割过的田</span><span lang="en">A harvested field</span></h2>
+    <p class="intro" data-reveal>
+      <span lang="zh-CN">和 ChatGPT、Claude、Codex 的对话，原样收进来。读的时候，把值得留下的拾进自己的笔记。</span>
+      <span lang="en">Your conversations with ChatGPT, Claude and Codex come in word for word. As you read, glean what is worth keeping into notes of your own.</span>
+    </p>
+    <div class="steps">
+    <article class="step reveal">
+      <button class="shot" type="button">
+        <img lang="zh-CN" src="img/gleaned-zh.webp" width="1280" height="800" loading="lazy" alt="左栏是导入的对话，中间是笔记，拾过的句子下面有一道麦金线">
+        <img lang="en" src="img/gleaned-en.webp" width="1280" height="800" loading="lazy" alt="The imported conversation on the left, the note in the middle; gleaned sentences carry a wheat-gold line">
+      </button>
+      <div class="say">
+        <h3><span lang="zh-CN">拾进笔记</span><span lang="en">Glean into a note</span></h3>
+        <p data-reveal>
+          <span lang="zh-CN">左边是原来的对话，中间是你的笔记。选中一句拾进来，原句留一道麦色的光；拾过的地方，页边多一穗麦，随时跳回原文。</span>
+          <span lang="en">The conversation on the left, your note in the middle. Select a sentence and glean it; the original keeps a wheat-gold trace, and a small ear in the margin takes you back to it.</span>
+        </p>
+      </div>
+    </article>
+    <article class="step reveal">
+      <button class="shot" type="button">
+        <img lang="zh-CN" src="img/annotations-zh.webp" width="1280" height="800" loading="lazy" alt="右栏是备注，用楷体写在页边，连着笔记里的那一句">
+        <img lang="en" src="img/annotations-en.webp" width="1280" height="800" loading="lazy" alt="Comments in the right margin, linked to the sentence they are about">
+      </button>
+      <div class="say">
+        <h3><span lang="zh-CN">写在页边</span><span lang="en">Write in the margin</span></h3>
+        <p data-reveal>
+          <span lang="zh-CN">三种字各有分工：AI 的原文用黑体，你的笔记用宋体，页边的备注用楷体。一眼就分得清哪些是拾来的，哪些是自己的。</span>
+          <span lang="en">Three voices, three typefaces: the AI’s text in sans, your notes in serif, your margin comments in a brush script. You always know what you gleaned and what you wrote.</span>
+        </p>
+      </div>
+    </article>
+    <article class="step reveal">
+      <button class="shot" type="button">
+        <img lang="zh-CN" src="img/export-zh.webp" width="1280" height="800" loading="lazy" alt="导出窗口：左边选格式，右边是排好的预览">
+        <img lang="en" src="img/export-en.webp" width="1280" height="800" loading="lazy" alt="The export window: choose a format on the left, a typeset preview on the right">
+      </button>
+      <div class="say">
+        <h3><span lang="zh-CN">带走</span><span lang="en">Take it with you</span></h3>
+        <p data-reveal>
+          <span lang="zh-CN">导出成 PDF、Word 或 Markdown，三种字跟着走；也可以打包成一个学习笔记包，别人打开还能跳回原文。</span>
+          <span lang="en">Export to PDF, Word or Markdown with the three voices intact, or pack notes and sources into one study pack that still jumps back to the original.</span>
+        </p>
+      </div>
+    </article>
+    </div>
+      </div>
+    </div>
+    <div class="day-panel" data-day="afternoon">
+      <div class="day-card">
+        <section class="name reveal" aria-labelledby="name-title">
+    <img class="brand" src="img/brand.webp" width="1024" height="1024" loading="lazy" alt="">
+    <div>
+      <p class="day-kicker"><span lang="zh-CN">午后</span><span lang="en">Afternoon</span></p>
+      <h2 id="name-title"><span lang="zh-CN">为什么叫拾穗</span><span lang="en">Why “Gleaner”</span></h2>
+      <p class="story" data-reveal>
+        <span lang="zh-CN">名字来自米勒的《拾穗者》。收割过后，田里还留着麦穗，拾穗的人弯下腰，一穗一穗拾起来，带回自己的地方。三十年后，梵高在圣雷米照着米勒的版画，又画了一遍田里劳作的人。</span>
+        <span lang="en">The name comes from Millet’s The Gleaners. After the harvest, grain is still left in the field; the gleaners bend down, pick it up ear by ear, and carry it home. Thirty years later, at Saint-Rémy, Van Gogh painted Millet’s field workers again from prints.</span>
+      </p>
+      <p class="story kai" data-reveal>
+        <span lang="zh-CN">和 AI 的对话也是一片收割过的田：在这里拾起值得留下的，变成你自己的笔记。</span>
+        <span lang="en">A conversation with AI is a harvested field too: glean what is worth keeping, and make it your own.</span>
+      </p>
+    </div>
+        </section>
+      </div>
+    </div>
+    <div class="day-panel" data-day="night">
+      <div class="day-card">
+        <div class="local reveal">
+        <p class="day-kicker"><span lang="zh-CN">夜</span><span lang="en">Night</span></p>
+        <h2 id="local-title"><span lang="zh-CN">只在你的电脑上</span><span lang="en">Only on your computer</span></h2>
+    <p class="big" data-reveal>
+      <span lang="zh-CN">对话和笔记都存在你自己的电脑里，不上传到任何服务器，不需要注册。</span>
+      <span lang="en">Conversations and notes are kept on your own computer. Nothing is uploaded, and there is no account.</span>
+    </p>
+    <ul class="ways">
+      <li>
+        <svg class="way-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 4h18v16H3zM3 8h18"/><g transform="rotate(0 12 18)"><path class="st" d="M12 18Q12.7 14.0 12.3 11.2"/><path class="aw" d="M10.3 11.10l-1.3 -3.8M14.2 12.20l1.3 -3.8"/><path class="aw" d="M10.3 13.40l-1.6 -3.8M14.2 14.50l1.6 -3.8"/><path class="k" style="--i:0" transform="translate(12.45 17.05) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:1" transform="translate(11.85 15.90) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:2" transform="translate(12.45 14.75) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:3" transform="translate(11.85 13.60) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:4" transform="translate(12.30 12.40) rotate(4)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="aw" d="M12.4 9.40l.3 -3.4"/></g></svg>
+        <h3><span lang="zh-CN">浏览器</span><span lang="en">Browser</span></h3>
+        <p><span lang="zh-CN">Chrome、Edge 扩展：在 ChatGPT、Claude 网页上点一下导入。</span><span lang="en">A Chrome and Edge extension: one click on ChatGPT or Claude.</span></p>
+      </li>
+      <li>
+        <svg class="way-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M7 8l-4 4 4 4M17 8l4 4-4 4"/><g transform="rotate(0 12 19)"><path class="st" d="M12 19Q12.7 12.5 12.3 7.2"/><path class="aw" d="M10.3 7.10l-1.3 -3.8M14.2 8.20l1.3 -3.8"/><path class="aw" d="M10.3 9.40l-1.6 -3.8M14.2 10.50l1.6 -3.8"/><path class="k" style="--i:0" transform="translate(12.45 15.35) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:1" transform="translate(11.85 14.20) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:2" transform="translate(12.45 13.05) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:3" transform="translate(11.85 11.90) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:4" transform="translate(12.45 10.75) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:5" transform="translate(11.85 9.60) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:6" transform="translate(12.30 8.40) rotate(4)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="aw" d="M12.4 5.40l.3 -3.4"/></g></svg>
+        <h3><span lang="zh-CN">编程助手</span><span lang="en">Coding agents</span></h3>
+        <p><span lang="zh-CN">读本机的 Codex、Claude Code 会话；在里面说"存到拾穗"也行。</span><span lang="en">Reads local Codex and Claude Code sessions, or just say “save to Gleaner” there.</span></p>
+      </li>
+      <li>
+        <svg class="way-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M6 3h8l4 4v14H6zM14 3v4h4"/><g transform="rotate(0 12 19)"><path class="st" d="M12 19Q12.7 14.5 12.3 11.2"/><path class="aw" d="M10.3 11.10l-1.3 -3.8M14.2 12.20l1.3 -3.8"/><path class="aw" d="M10.3 13.40l-1.6 -3.8M14.2 14.50l1.6 -3.8"/><path class="k" style="--i:0" transform="translate(12.45 17.05) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:1" transform="translate(11.85 15.90) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:2" transform="translate(12.45 14.75) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:3" transform="translate(11.85 13.60) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:4" transform="translate(12.30 12.40) rotate(4)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="aw" d="M12.4 9.40l.3 -3.4"/></g></svg>
+        <h3><span lang="zh-CN">文件</span><span lang="en">Files</span></h3>
+        <p><span lang="zh-CN">PDF 和图片也能放进来，同样摘录、写备注。</span><span lang="en">PDFs and images come in too, for the same excerpts and comments.</span></p>
+      </li>
+    </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ⑤ 下载 -->
+  <section class="download reveal" id="download" aria-labelledby="download-title">
+    <img class="icon" src="img/icon.png" width="1024" height="1024" loading="lazy" alt="">
+    <h2 id="download-title"><span lang="zh-CN">下载</span><span lang="en">Download</span></h2>
+    <!-- 上线前显示"即将推出"；SITE_LIVE=1 构建时（site/build.mjs）换成下载按钮，直接下载公开发布仓库最新版本的 dmg -->
+    <div class="get" data-get>
+      <a class="btn" data-releases href="https://github.com/Thomas-Melonesoda/gleaner/releases/latest/download/Gleaner-arm64.dmg"><span lang="zh-CN">下载 Mac 版</span><span lang="en">Download for Mac</span></a>
+      <p class="get-note">
+        <span lang="zh-CN">适用于 Apple 芯片（M 系列）的 Mac，macOS 13 或更新。下载后打开 dmg，把拾穗拖进"应用程序"。</span>
+        <span lang="en">For Macs with Apple silicon (M series), macOS 13 or later. Open the dmg and drag Gleaner into Applications.</span>
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- 点截图放大看：浏览器自带的 <dialog>，按 Esc、点任意处或"关闭"都能关 -->
+<dialog class="zoom">
+  <img alt="">
+  <button class="zoom-close" type="button"><span lang="zh-CN">关闭</span><span lang="en">Close</span></button>
+</dialog>
+
+<footer class="foot">
+  <p>
+    <span lang="zh-CN">画：米勒《拾穗者》（奥赛博物馆）；梵高《麦田与收割者》《麦田群鸦》（梵高博物馆）。均为公共领域。字体：思源宋体、EB Garamond，均为 SIL Open Font License。</span>
+    <span lang="en">Paintings: Millet’s The Gleaners (Musée d’Orsay); Van Gogh’s Wheatfield with a Reaper and Wheatfield with Crows (Van Gogh Museum). All public domain. Typefaces: Noto Serif SC and EB Garamond, both under the SIL Open Font License.</span>
+  </p>
+  <p><a class="link" href="privacy.html"><span lang="zh-CN">隐私说明</span><span lang="en">Privacy</span></a> · © 2026 Gleaner</p>
+</footer>
+</body>
+</html>
