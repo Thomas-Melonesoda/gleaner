@@ -4,18 +4,42 @@
   const root = document.documentElement;
   root.classList.add('js');
 
-  // 点截图放大看：放大的是当前语言那一张
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 点截图或短片放大看：放大的是当前语言那一个；"减少动态效果"时短片放大也只显示静态图
   const zoom = document.querySelector('.zoom');
   const big = zoom.querySelector('img');
+  const bigVideo = zoom.querySelector('video');
   document.querySelectorAll('.shot').forEach((b) => b.addEventListener('click', () => {
-    const img = [...b.querySelectorAll('img')].find((i) => i.offsetParent);
-    if (!img) return;
-    big.src = img.currentSrc || img.src;
-    big.alt = img.alt;
+    const media = [...b.querySelectorAll('img, video')].find((m) => m.offsetParent);
+    if (!media) return;
+    const video = media.tagName === 'VIDEO' && !calm;
+    big.hidden = video;
+    bigVideo.hidden = !video;
+    if (video) {
+      bigVideo.src = media.querySelector('source').src;
+      bigVideo.setAttribute('aria-label', media.getAttribute('aria-label') ?? '');
+      void bigVideo.play().catch(() => {});
+    } else {
+      big.src = media.tagName === 'VIDEO' ? media.poster : media.currentSrc || media.src;
+      big.alt = media.getAttribute('aria-label') ?? media.alt ?? '';
+    }
     zoom.showModal();
   }));
   zoom.addEventListener('click', () => zoom.close());
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  zoom.addEventListener('close', () => bigVideo.pause());
+
+  // 功能短片（试用反馈 C4）：只在看得见时播放，看不见就停；"减少动态效果"时不播放，只显示首帧图
+  const clips = [...document.querySelectorAll('.clip video')];
+  if (!calm && 'IntersectionObserver' in window) {
+    const clipIo = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const v = e.target;
+        if (e.isIntersecting && v.offsetParent) void v.play().catch(() => {});
+        else v.pause();
+      }
+    }, { threshold: 0.35 });
+    clips.forEach((v) => clipIo.observe(v));
+  }
   const items = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) return items.forEach((el) => el.classList.add('seen'));
   const io = new IntersectionObserver((entries) => {
