@@ -204,3 +204,8 @@ html[data-lang="en"] .doc h2 { font-family: var(--latin); font-size: 26px; }
   .brand { max-width: 200px; }
   .lede { font-size: 19px; }
 }
+
+/* 第 1 个功能放两段短片（网页扩展、本机会话），上下排，各带一行小标题（docs/design/homepage-clips-v3.md） */
+.clips { display: grid; gap: var(--space-6); }
+.clip-fig { margin: 0; }
+.clip-cap { margin: 0 0 var(--space-3); font-size: 14px; color: var(--ink-2); letter-spacing: 0.02em; }
