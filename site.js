@@ -4,6 +4,23 @@
   const root = document.documentElement;
   root.classList.add('js');
 
+  // 下载点击记录（docs/design/usage-stats.md 第 2.3 节，只在正式构建里有 data-stats）：
+  // 进站时记下推广渠道（?ref=）和来源网站的域名，点下载时顺带发一条；发不出去也照样下载
+  const stats = root.dataset.stats;
+  if (stats) {
+    const keep = (k, v) => { try { if (v && !sessionStorage.getItem(k)) sessionStorage.setItem(k, v); } catch { /* 存不了就不记 */ } };
+    const get = (k) => { try { return sessionStorage.getItem(k); } catch { return null; } };
+    const ref = new URLSearchParams(location.search).get('ref');
+    if (ref && /^[a-z0-9-]{1,24}$/.test(ref)) keep('ref', ref);
+    try { const host = document.referrer && new URL(document.referrer).hostname; if (host && host !== location.hostname) keep('src', host); } catch { /* 没有来源 */ }
+    document.querySelectorAll('[data-releases]').forEach((a) => a.addEventListener('click', () => {
+      try {
+        const body = JSON.stringify({ os: 'mac', ref: get('ref'), src: get('src'), lang: root.dataset.lang === 'en' ? 'en' : 'zh' });
+        navigator.sendBeacon(stats, new Blob([body], { type: 'text/plain' }));
+      } catch { /* 不影响下载 */ }
+    }));
+  }
+
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // 点截图或短片放大看：放大的是当前语言那一个；"减少动态效果"时短片放大也只显示静态图
   const zoom = document.querySelector('.zoom');

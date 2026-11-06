@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-lang="zh" data-title-zh="隐私说明 · 拾穗" data-title-en="Privacy · Gleaner">
+<html lang="zh-CN" data-lang="zh" data-title-zh="隐私说明 · 拾穗" data-title-en="Privacy · Gleaner" data-stats="https://stats.gleanernotes.com/v1/click">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,11 +29,11 @@
 <main id="main">
   <article class="doc">
     <h1><span lang="zh-CN">隐私说明</span><span lang="en">Privacy</span></h1>
-    <p class="updated"><span lang="zh-CN">最后更新：2026 年 10 月 31 日</span><span lang="en">Last updated: October 31, 2026</span></p>
+    <p class="updated"><span lang="zh-CN">最后更新：2026 年 11 月 5 日</span><span lang="en">Last updated: November 5, 2026</span></p>
 
     <p class="lead">
-      <span lang="zh-CN">拾穗不收集你的任何数据。没有账号，没有使用统计，没有广告；我们也没有用来存放你数据的服务器。</span>
-      <span lang="en">Gleaner collects none of your data. There is no account, no usage analytics and no advertising, and we run no server that stores your data.</span>
+      <span lang="zh-CN">你的资料只在你自己的电脑上。没有账号，没有广告；我们没有用来存放你资料的服务器。App 每天会发送一次匿名使用统计（只有次数，不含任何资料内容），可以随时关掉，详见下面。</span>
+      <span lang="en">Your library stays on your own computer. There is no account and no advertising, and we run no server that stores your library. Once a day the app sends anonymous usage stats (counts only, nothing from your library), which you can turn off at any time; details below.</span>
     </p>
 
     <h2><span lang="zh-CN">拾穗 App</span><span lang="en">The Gleaner app</span></h2>
@@ -47,13 +47,51 @@
         <span lang="en">Exported PDF, Word and Markdown files and study packs are saved only where you choose.</span>
       </li>
       <li>
-        <span lang="zh-CN">App 唯一主动联网的地方是检查新版本：每次启动时向 GitHub（<code>api.github.com</code>）查询一次最新的版本号。这次请求不带任何资料库内容，但和打开任何网页一样，GitHub 能看到你的 IP 地址。</span>
-        <span lang="en">The only time the app goes online on its own is to check for a new version: once per launch it asks GitHub (<code>api.github.com</code>) for the latest version number. The request carries none of your library, but as with any web page, GitHub can see your IP address.</span>
+        <span lang="zh-CN">App 主动联网的地方只有两处。第一处是检查新版本：每次启动时向 GitHub（<code>api.github.com</code>）查询一次最新的版本号。这次请求不带任何资料库内容，但和打开任何网页一样，GitHub 能看到你的 IP 地址。</span>
+        <span lang="en">The app goes online on its own in only two places. The first is the update check: once per launch it asks GitHub (<code>api.github.com</code>) for the latest version number. The request carries none of your library, but as with any web page, GitHub can see your IP address.</span>
+      </li>
+      <li>
+        <span lang="zh-CN">第二处是匿名使用统计，见下一节。</span>
+        <span lang="en">The second is anonymous usage stats, described in the next section.</span>
       </li>
       <li>
         <span lang="zh-CN">你在笔记里点链接时，链接用你的浏览器打开。</span>
         <span lang="en">Links you click in your notes open in your browser.</span>
       </li>
+    </ul>
+
+    <h2 id="usage-stats"><span lang="zh-CN">匿名使用统计</span><span lang="en">Anonymous usage stats</span></h2>
+    <p>
+      <span lang="zh-CN">为了知道有多少人在用、哪些功能有用，App 每天最多一次（当天第一次打开时）向我们的统计服务 <code>stats.gleanernotes.com</code> 发送下面这些，第一次打开时会先提示你。只计数，不认人：</span>
+      <span lang="en">So that we know how many people use Gleaner and which features help, the app sends the following to our stats service at <code>stats.gleanernotes.com</code> at most once a day (the first time you open it that day). It tells you first, the first time you open it. It counts; it does not identify you:</span>
+    </p>
+    <ul>
+      <li><span lang="zh-CN">App 的版本号、系统（Mac 或 Windows）、芯片（Apple 芯片或 Intel）、界面语言。</span><span lang="en">The app version, the system (Mac or Windows), the chip (Apple silicon or Intel) and the interface language.</span></li>
+      <li><span lang="zh-CN">是不是这台电脑第一次发、是不是本周或本月第一次发，以及装了多久（不到 1 天、1–7 天、8–30 天、更久）。</span><span lang="en">Whether this is the computer's first send, or its first this week or this month, and roughly how long the app has been installed (under a day, 1–7 days, 8–30 days or longer).</span></li>
+      <li><span lang="zh-CN">上次发送以来，下面每件事各做了几次：</span><span lang="en">How many times each of the following happened since the last send:</span></li>
+    </ul>
+    <ul data-feature-keys>
+      <li><code>import_web</code> <span lang="zh-CN">从浏览器扩展导入一份对话</span><span lang="en">imported a conversation from the browser extension</span></li>
+      <li><code>import_plugin</code> <span lang="zh-CN">从 Claude 应用或 Codex、Claude Code 插件存进来一份</span><span lang="en">saved something in from the Claude app or the Codex / Claude Code plugins</span></li>
+      <li><code>import_session</code> <span lang="zh-CN">导入一份本机的 Codex 或 Claude Code 会话</span><span lang="en">imported a local Codex or Claude Code session</span></li>
+      <li><code>import_file</code> <span lang="zh-CN">加进来文件（PDF、图片等）</span><span lang="en">added files (PDFs, images and so on)</span></li>
+      <li><code>import_pack</code> <span lang="zh-CN">导入学习笔记包</span><span lang="en">imported a study pack</span></li>
+      <li><code>note_new</code> <span lang="zh-CN">新建笔记</span><span lang="en">created a note</span></li>
+      <li><code>excerpt</code> <span lang="zh-CN">拾进笔记一段摘录</span><span lang="en">gleaned an excerpt into a note</span></li>
+      <li><code>annotation</code> <span lang="zh-CN">新建一条备注</span><span lang="en">added a comment</span></li>
+      <li><code>export_pdf</code> <span lang="zh-CN">导出 PDF</span><span lang="en">exported a PDF</span></li>
+      <li><code>export_docx</code> <span lang="zh-CN">导出 Word</span><span lang="en">exported a Word file</span></li>
+      <li><code>export_md</code> <span lang="zh-CN">导出 Markdown</span><span lang="en">exported Markdown</span></li>
+      <li><code>export_pack</code> <span lang="zh-CN">导出学习笔记包</span><span lang="en">exported a study pack</span></li>
+      <li><code>search</code> <span lang="zh-CN">搜索</span><span lang="en">searched</span></li>
+      <li><code>star</code> <span lang="zh-CN">给轮次打星标</span><span lang="en">starred turns</span></li>
+      <li><code>turns_tidy</code> <span lang="zh-CN">删除轮次</span><span lang="en">deleted turns</span></li>
+      <li><code>guide</code> <span lang="zh-CN">打开使用说明</span><span lang="en">opened the guide</span></li>
+    </ul>
+    <ul>
+      <li><span lang="zh-CN">不发送：资料库里的任何内容、文件名和路径、对话或笔记的标题、网址、用户编号或设备编号、具体的使用时间。</span><span lang="en">Never sent: anything in your library, file names or paths, conversation or note titles, web addresses, any user or device ID, or when exactly you used the app.</span></li>
+      <li><span lang="zh-CN">统计服务不保存你的 IP 地址（它只用来防止有人刷数据）。明细保留 13 个月，之后自动删除。</span><span lang="en">The stats service does not store your IP address (it is used only to stop abuse). The records are kept for 13 months and then deleted automatically.</span></li>
+      <li><span lang="zh-CN">怎么关：第一次打开时的提示里点"关闭统计"，或者随时在菜单"帮助 → 发送匿名使用统计"里取消勾选。关掉后不再发送，还没发出去的次数也一起清掉。</span><span lang="en">To turn it off, click Turn off in the notice the first time you open the app, or at any time untick Help → Send Anonymous Usage Stats in the menu. Once it is off nothing more is sent, and counts not yet sent are cleared.</span></li>
     </ul>
 
     <h2><span lang="zh-CN">浏览器扩展（Chrome、Edge）</span><span lang="en">The browser extension (Chrome and Edge)</span></h2>
@@ -94,8 +132,8 @@
 
     <h2><span lang="zh-CN">这个网站</span><span lang="en">This website</span></h2>
     <p>
-      <span lang="zh-CN">本站不用 Cookie，不做访问统计，字体和图片都从本站加载。和所有网站一样，托管网站的服务商可能会在访问日志里记下你的 IP 地址。</span>
-      <span lang="en">This site sets no cookies and runs no analytics; its fonts and images load from this site. As with any website, the hosting provider may record your IP address in its access logs.</span>
+      <span lang="zh-CN">本站不用 Cookie，字体和图片都从本站加载。我们用 Cloudflare 网页分析统计访问量和来源网站，它也不用 Cookie。你点下载按钮时，网站会记一次点击：哪个系统的按钮、推广链接里的渠道标记（比如 <code>?ref=</code>）、你从哪个网站来（只记域名）和页面语言。和所有网站一样，托管网站的服务商可能会在访问日志里记下你的 IP 地址。</span>
+      <span lang="en">This site sets no cookies, and its fonts and images load from this site. We use Cloudflare Web Analytics, which also sets no cookies, to count visits and referring sites. When you click a download button, the site records one click: which system's button, the campaign tag in a promotional link (such as <code>?ref=</code>), the site you came from (its domain only) and the page language. As with any website, the hosting provider may record your IP address in its access logs.</span>
     </p>
 
     <h2><span lang="zh-CN">联系</span><span lang="en">Contact</span></h2>
@@ -109,5 +147,6 @@
 <footer class="foot">
   <p><a class="link" href="./"><span lang="zh-CN">返回主页</span><span lang="en">Back to home</span></a> · © 2026 Gleaner</p>
 </footer>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"7454918f452b482b9119001f5b6639af"}'></script>
 </body>
 </html>
