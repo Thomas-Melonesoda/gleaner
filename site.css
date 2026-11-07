@@ -144,6 +144,11 @@ main > section.day { position: relative; max-width: none; padding: 0; margin: 0;
 .download .btn { background: var(--ink); color: var(--paper); }
 .download .btn:hover { background: var(--ink-2); }
 .get-note { max-width: 30em; margin: var(--space-5) auto 0; font-size: 15px; color: var(--ink-2); }
+.get-one[hidden] { display: none; }
+.get-other { margin: var(--space-5) auto 0; font-size: 15px; color: var(--ink-2); }
+.get-switch { font: inherit; color: var(--ink); background: none; border: 0; padding: 4px 2px; margin: 0 6px; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; cursor: pointer; }
+.get-switch:hover { text-decoration-color: currentColor; }
+.get-switch[hidden] { display: none; }
 
 /* 隐私说明：顶栏不压在画上，用纸色和墨色 */
 .top.on-paper { position: static; color: var(--ink); border-bottom: var(--line) solid var(--rule); }

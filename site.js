@@ -4,6 +4,30 @@
   const root = document.documentElement;
   root.classList.add('js');
 
+  // 下载按钮按访客的系统（Windows 计划 W1-6）：先显示对应的一块，其他发布了的放进"其他系统"，点了换过去。
+  // 看不出来的系统（Linux、手机）先显示第一块。Mac 看不出是哪种芯片，默认 Apple 芯片
+  const blocks = [...document.querySelectorAll('.get-one')];
+  const other = document.querySelector('[data-get-other]');
+  if (blocks.length > 1 && other) {
+    // 只看 userAgent：里面一定写着 Windows 或 Macintosh（浏览器精简 userAgent 后也还在）
+    const ua = navigator.userAgent;
+    const want = /Windows/.test(ua) ? 'win-x64' : /Macintosh|Mac OS X/.test(ua) ? 'mac-arm64' : '';
+    const show = (os) => blocks.forEach((b) => { b.hidden = b.dataset.os !== os; });
+    const links = blocks.map((b) => {
+      const a = document.createElement('button');
+      a.type = 'button';
+      a.className = 'get-switch';
+      a.dataset.to = b.dataset.os;
+      a.innerHTML = b.querySelector('.btn').innerHTML;
+      a.addEventListener('click', () => { pick(b.dataset.os); document.querySelector(`.get-one[data-os="${b.dataset.os}"] .btn`)?.focus(); });
+      other.append(' ', a);
+      return a;
+    });
+    const pick = (os) => { show(os); links.forEach((a) => { a.hidden = a.dataset.to === os; }); };
+    pick(blocks.some((b) => b.dataset.os === want) ? want : blocks[0].dataset.os);
+    other.hidden = false;
+  }
+
   // 下载点击记录（docs/design/usage-stats.md 第 2.3 节，只在正式构建里有 data-stats）：
   // 进站时记下推广渠道（?ref=）和来源网站的域名，点下载时顺带发一条；发不出去也照样下载
   const stats = root.dataset.stats;
@@ -15,7 +39,7 @@
     try { const host = document.referrer && new URL(document.referrer).hostname; if (host && host !== location.hostname) keep('src', host); } catch { /* 没有来源 */ }
     document.querySelectorAll('[data-releases]').forEach((a) => a.addEventListener('click', () => {
       try {
-        const body = JSON.stringify({ os: 'mac', ref: get('ref'), src: get('src'), lang: root.dataset.lang === 'en' ? 'en' : 'zh' });
+        const body = JSON.stringify({ os: a.closest('[data-os]')?.dataset.os?.startsWith('win') ? 'win' : 'mac', ref: get('ref'), src: get('src'), lang: root.dataset.lang === 'en' ? 'en' : 'zh' });
         navigator.sendBeacon(stats, new Blob([body], { type: 'text/plain' }));
       } catch { /* 不影响下载 */ }
     }));

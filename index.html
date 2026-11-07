@@ -148,7 +148,8 @@
               <li>
                 <svg class="way-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M6 3h8l4 4v14H6zM14 3v4h4"/><g transform="rotate(0 12 19)"><path class="st" d="M12 19Q12.7 14.5 12.3 11.2"/><path class="aw" d="M10.3 11.10l-1.3 -3.8M14.2 12.20l1.3 -3.8"/><path class="aw" d="M10.3 13.40l-1.6 -3.8M14.2 14.50l1.6 -3.8"/><path class="k" style="--i:0" transform="translate(12.45 17.05) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:1" transform="translate(11.85 15.90) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:2" transform="translate(12.45 14.75) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:3" transform="translate(11.85 13.60) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:4" transform="translate(12.30 12.40) rotate(4)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="aw" d="M12.4 9.40l.3 -3.4"/></g></svg>
                 <h3><span lang="zh-CN">下载 App</span><span lang="en">Download the app</span></h3>
-                <p><span lang="zh-CN">Apple 芯片（M 系列）的 Mac，macOS 13 或更新。打开 dmg，把拾穗拖进"应用程序"。</span><span lang="en">Macs with Apple silicon, macOS 13 or later. Open the dmg and drag Gleaner into Applications.</span></p>
+                <p><span lang="zh-CN">Mac：macOS 13 或更新，打开 dmg，把拾穗拖进"应用程序"。</span><span lang="en">Mac: macOS 13 or later. Open the dmg and drag Gleaner into Applications.</span></p>
+                <p data-only="win-x64"><span lang="zh-CN">Windows：10 或 11（64 位），双击安装程序就装好了。</span><span lang="en">Windows: 10 or 11 (64-bit). Double-click the installer and you're done.</span></p>
               </li>
               <li>
                 <svg class="way-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 4h18v16H3zM3 8h18"/><g transform="rotate(0 12 18)"><path class="st" d="M12 18Q12.7 14.0 12.3 11.2"/><path class="aw" d="M10.3 11.10l-1.3 -3.8M14.2 12.20l1.3 -3.8"/><path class="aw" d="M10.3 13.40l-1.6 -3.8M14.2 14.50l1.6 -3.8"/><path class="k" style="--i:0" transform="translate(12.45 17.05) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:1" transform="translate(11.85 15.90) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:2" transform="translate(12.45 14.75) rotate(34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:3" transform="translate(11.85 13.60) rotate(-34)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="k" style="--i:4" transform="translate(12.30 12.40) rotate(4)" d="M0 0C1.15 -.55 1 -2.3 0 -3.1C-1 -2.3 -1.15 -.55 0 0Z"/><path class="aw" d="M12.4 9.40l.3 -3.4"/></g></svg>
@@ -174,12 +175,24 @@
     <img class="icon" src="img/icon.png" width="1024" height="1024" loading="lazy" alt="">
     <h2 id="download-title"><span lang="zh-CN">下载</span><span lang="en">Download</span></h2>
     <!-- 上线前显示"即将推出"；SITE_LIVE=1 构建时（site/build.mjs）换成下载按钮，直接下载公开发布仓库最新版本的 dmg -->
+    <!-- 每个安装包一块（data-os）；正式构建只留已经发布的（SITE_INSTALLERS，docs/plans/2026-11-windows.md），
+         site.js 按访客的系统先显示对应的一块，其他的放进"其他系统" -->
     <div class="get" data-get>
-      <a class="btn" data-releases href="https://github.com/Thomas-Melonesoda/gleaner/releases/latest/download/Gleaner-arm64.dmg"><span lang="zh-CN">下载 Mac 版</span><span lang="en">Download for Mac</span></a>
-      <p class="get-note">
-        <span lang="zh-CN">适用于 Apple 芯片（M 系列）的 Mac，macOS 13 或更新。下载后打开 dmg，把拾穗拖进"应用程序"。</span>
-        <span lang="en">For Macs with Apple silicon (M series), macOS 13 or later. Open the dmg and drag Gleaner into Applications.</span>
-      </p>
+      <div class="get-one" data-os="mac-arm64" id="get-mac-arm64">
+        <a class="btn" data-releases href="https://github.com/Thomas-Melonesoda/gleaner/releases/latest/download/Gleaner-arm64.dmg"><span lang="zh-CN">下载 Mac 版</span><span lang="en">Download for Mac</span></a>
+        <p class="get-note">
+          <span lang="zh-CN">适用于 Apple 芯片（M 系列）的 Mac，macOS 13 或更新。下载后打开 dmg，把拾穗拖进"应用程序"。</span>
+          <span lang="en">For Macs with Apple silicon (M series), macOS 13 or later. Open the dmg and drag Gleaner into Applications.</span>
+        </p>
+      </div>
+      <div class="get-one" data-os="win-x64" id="get-win-x64">
+        <a class="btn" data-releases href="https://github.com/Thomas-Melonesoda/gleaner/releases/latest/download/Gleaner-Setup-x64.exe"><span lang="zh-CN">下载 Windows 版</span><span lang="en">Download for Windows</span></a>
+        <p class="get-note">
+          <span lang="zh-CN">适用于 Windows 10 和 11（64 位）。下载后双击安装，不需要管理员权限。如果出现"Windows 已保护你的电脑"，点"更多信息"，再点"仍要运行"。</span>
+          <span lang="en">For Windows 10 and 11 (64-bit). Double-click to install; no administrator rights needed. If you see “Windows protected your PC”, click “More info”, then “Run anyway”.</span>
+        </p>
+      </div>
+      <p class="get-other" data-get-other hidden><span lang="zh-CN">其他系统：</span><span lang="en">Other systems:</span></p>
     </div>
   </section>
 </main>
