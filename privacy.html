@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>隐私说明 · 拾穗</title>
-<meta name="description" content="拾穗（Gleaner）不收集你的任何数据：对话和笔记只存在你自己的电脑上。Gleaner collects none of your data: conversations and notes stay on your own computer.">
+<meta name="description" content="拾穗（Gleaner）不开云同步时，资料只在你自己的电脑上；开了云同步，内容加密传输和存放，我们不会查看。Gleaner: with cloud sync off, your library stays on your own computer; turn it on, and your content is encrypted in transit and in storage, and we don't look at it.">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="tokens.css">
@@ -29,11 +29,11 @@
 <main id="main">
   <article class="doc">
     <h1><span lang="zh-CN">隐私说明</span><span lang="en">Privacy</span></h1>
-    <p class="updated"><span lang="zh-CN">最后更新：2026 年 11 月 5 日</span><span lang="en">Last updated: November 5, 2026</span></p>
+    <p class="updated"><span lang="zh-CN">最后更新：2026 年 11 月 10 日</span><span lang="en">Last updated: November 10, 2026</span></p>
 
     <p class="lead">
-      <span lang="zh-CN">你的资料只在你自己的电脑上。没有账号，没有广告；我们没有用来存放你资料的服务器。App 每天会发送一次匿名使用统计（只有次数，不含任何资料内容），可以随时关掉，详见下面。</span>
-      <span lang="en">Your library stays on your own computer. There is no account and no advertising, and we run no server that stores your library. Once a day the app sends anonymous usage stats (counts only, nothing from your library), which you can turn off at any time; details below.</span>
+      <span lang="zh-CN">不开云同步时，资料库只在你自己的电脑上。开了云同步，传上去的内容加密传输和存放，我们不会查看（详见下面"云同步"一节）。没有广告。App 每天会发送一次匿名使用统计（只有次数，不含任何资料内容），可以随时关掉，详见下面。</span>
+      <span lang="en">When cloud sync is off, your library stays on your own computer. Turn cloud sync on, and what gets uploaded is encrypted in transit and in storage, and we don't look at it (see "Cloud sync" below). There is no advertising. Once a day the app sends anonymous usage stats (counts only, nothing from your library), which you can turn off at any time; details below.</span>
     </p>
 
     <h2><span lang="zh-CN">拾穗 App</span><span lang="en">The Gleaner app</span></h2>
@@ -92,6 +92,18 @@
       <li><span lang="zh-CN">不发送：资料库里的任何内容、文件名和路径、对话或笔记的标题、网址、用户编号或设备编号、具体的使用时间。</span><span lang="en">Never sent: anything in your library, file names or paths, conversation or note titles, web addresses, any user or device ID, or when exactly you used the app.</span></li>
       <li><span lang="zh-CN">统计服务不保存你的 IP 地址（它只用来防止有人刷数据）。明细保留 13 个月，之后自动删除。</span><span lang="en">The stats service does not store your IP address (it is used only to stop abuse). The records are kept for 13 months and then deleted automatically.</span></li>
       <li><span lang="zh-CN">怎么关：第一次打开时的提示里点"关闭统计"，或者随时在菜单"帮助 → 发送匿名使用统计"里取消勾选。关掉后不再发送，还没发出去的次数也一起清掉。</span><span lang="en">To turn it off, click Turn off in the notice the first time you open the app, or at any time untick Help → Send Anonymous Usage Stats in the menu. Once it is off nothing more is sent, and counts not yet sent are cleared.</span></li>
+    </ul>
+
+    <h2 id="cloud-sync"><span lang="zh-CN">云同步（自己开启才有）</span><span lang="en">Cloud sync (only if you turn it on)</span></h2>
+    <ul>
+      <li><span lang="zh-CN">云同步默认关闭，只有你在设置里登录并开启才会上传。</span><span lang="en">Cloud sync is off by default. Nothing is uploaded unless you sign in and turn it on in Settings.</span></li>
+      <li><span lang="zh-CN">服务器保存什么：你的邮箱；加密后的笔记、材料、文件和文件夹；每条记录的种类、条数、大小和修改时间；登录的电脑（类型、名字、登录和最近同步的时间）。</span><span lang="en">What the server stores: your email; your notes, materials, files and folders, encrypted; the kind, number, size and last-changed time of each item; and the computers signed in (their type, name, and when they signed in and last synced).</span></li>
+      <li><span lang="zh-CN">加密和钥匙：内容在传输和存放时都是加密的。钥匙由我们的服务器保管，所以换电脑只要用邮箱登录，不需要记什么恢复用的密码；这也意味着我们在技术上能解开你的内容。</span><span lang="en">Encryption and the key: your content is encrypted in transit and in storage. Our server keeps the key, so a new computer only needs your email to sign in and there is nothing extra to remember. It also means we can technically decrypt your content.</span></li>
+      <li><span lang="zh-CN">我们的承诺：我们不会查看你的内容，除非你为了排查问题主动请我们看，或者法律要求；不卖给任何人、不拿去训练 AI、不用来做广告。内容只由程序为同步而处理。</span><span lang="en">Our promise: we don't look at your content unless you ask us to while we help you with a problem, or the law requires it. We don't sell it, use it to train AI, or use it for advertising. It is processed only by software, and only to sync it.</span></li>
+      <li><span lang="zh-CN">新电脑登录提醒：账号已经有电脑登录着时，又有一台新电脑登录，我们会给你的邮箱发一封提醒，写明时间、电脑类型和按网络地址估计的大概地区；大概地区只用来写这封邮件，不保存。别的电脑下次同步时也会提示一次。</span><span lang="en">New computer sign-in notice: when another computer signs in while one is already signed in, we email you the time, the type of computer and an approximate location estimated from its network address. The location is used only to write that email and is not stored. Your other computers also show a notice the next time they sync.</span></li>
+      <li><span lang="zh-CN">保护好你的邮箱：能收到登录验证码的人就能登录、看到你同步的内容。我们的邮件里从来不放链接，也不会问你要验证码。</span><span lang="en">Keep your email account safe: anyone who can get the sign-in code can sign in and see what you sync. Our emails never contain links, and we will never ask you for a code.</span></li>
+      <li><span lang="zh-CN">存放在哪里：Cloudflare（Workers、D1 数据库、R2 存储）。</span><span lang="en">Where it is stored: Cloudflare (Workers, the D1 database and R2 storage).</span></li>
+      <li><span lang="zh-CN">你可以随时在设置里撤销某台电脑、删除云端数据或删除账号；删除后，服务器上这个账号的内容和钥匙一起删掉。</span><span lang="en">You can remove a computer, delete your cloud data or delete your account at any time in Settings. When you delete, everything the server holds for that account, including the key, is deleted with it.</span></li>
     </ul>
 
     <h2><span lang="zh-CN">浏览器扩展（Chrome、Edge）</span><span lang="en">The browser extension (Chrome and Edge)</span></h2>
